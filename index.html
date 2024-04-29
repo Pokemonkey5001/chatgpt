@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatGPT 4</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #12c2e9, #c471ed, #f64f59); /* Vibrant gradient background */
+    }
+    .container {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent white for modern feel */
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px; /* Optimized width for focus */
+        box-sizing: border-box;
+    }
+    .iframe-container {
+        display: none; /* Hide iframe by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+    }
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    input[type="password"], button {
+        padding: 12px 20px;
+        margin-top: 10px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: all 0.3s;
+    }
+    input[type="password"] {
+        background-color: #f0f0f0;
+        font-size: 16px;
+    }
+    button {
+        background-color: #4CAF50; /* Green button for submit */
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049; /* Darken the button slightly on hover */
+    }
+</style>
+</head>
+<body>
+<div id="otpContainer" class="container">
+    <h2>Enter OTP to View Content</h2>
+    <input type="password" id="password" placeholder="Enter OTP">
+    <button onclick="checkPassword()">Submit</button>
+    <p id="message"></p>
+</div>
+
+<div id="iframeContainer" class="iframe-container">
+    <iframe id=GZTORDMWKE loading="eager" src="https://embed.pickaxeproject.com/axe?id=Chatbot_That_Works_0J9D0&mode=embed_gold&host=beta&theme=custom&opacity=80&image=hide&font_header=Noto+Sans&size_header=30&font_body=Quicksand&size_body=16&font_labels=Roboto+Slab&size_labels=14&font_button=Space+Grotesk&size_button=16&c_fb=08090B&c_ff=08090B&c_fbd=FFFFFF&c_bb=FFFFFF&c_bt=000000&c_t=FFFFFF&s_ffo=100&s_bbo=100&s_f=box&s_b=outline&s_t=0.5&s_to=1&s_r=2&sb_t=Send" width="100%" height="1150px" onMouseOver="this.style.boxShadow='0px 6px 6px -3px rgba(0,0,0,0.1)'" onMouseOut="this.style.boxShadow='none'" style="border:1px solid rgba(0, 0, 0, 0.8);transition:.3s;border-radius:4px;" frameBorder="0"></iframe>
+</div>
+
+<script>
+    // Check if the OTP has already been validated
+    window.onload = function() {
+        if(localStorage.getItem('otpValidated') === 'true') {
+            document.getElementById('otpContainer').style.display = 'none';
+            document.getElementById('iframeContainer').style.display = 'block';
+        }
+    };
+
+    function checkPassword() {
+        var correctPassword = 'Tiggerthecat1'; // This should be set server-side in a real app
+        var userPassword = document.getElementById('password').value;
+        if(userPassword === correctPassword) {
+            localStorage.setItem('otpValidated', 'true'); // Store validation in local storage
+            document.getElementById('message').innerHTML = "Access granted!";
+            document.getElementById('otpContainer').style.display = 'none';
+            document.getElementById('iframeContainer').style.display = 'block';
+        } else {
+            document.getElementById('message').innerHTML = "Access denied! Incorrect OTP.";
+        }
+    }
+</script>
+</body>
+</html>
